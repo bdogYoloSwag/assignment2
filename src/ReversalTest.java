@@ -17,77 +17,78 @@ public class ReversalTest {
 	@Test
 	public void test1Line() {
 		try {
-			File input = folder.newFile("foo.txt");
-			File output = folder.newFile("bar.txt");
+			File input = folder.newFile("test.txt");
+			File output = folder.newFile("test2.txt");
 			// create input file
 			PrintWriter write = new PrintWriter(input);
-			write.println("2 + 5 = 7");
+			write.println("i will run");
 			write.close();
 
 			// invoke program
 			Reversal.reverseFile(input, output);
 
 			// verify file results
-			assertTrue("Output file does not exist", output.exists());
+			assertTrue("no file", output.exists());
 			Scanner scan = new Scanner(output);
 			String actual = scan.nextLine();
-			String expected = "7 = 5 + 2";
-			assertEquals("Incorrect result", expected, actual);
-			assertFalse("File should not have more data", scan.hasNext());
+			String expected = "run will i";
+			assertEquals("fail", expected, actual);
+			assertFalse("end of file", scan.hasNext());
 		} catch (IOException e) {
-			fail("No exception should be thrown");
+			fail("exception");
 		}
 	}
 
 	@Test
 	public void test3Lines() {
 		try {
-			File input = folder.newFile("boom.txt");
-			File output = folder.newFile("argo.txt");
+			File input = folder.newFile("test.txt");
+			File output = folder.newFile("test2.txt");
 			// create input file
 			PrintWriter write = new PrintWriter(input);
-			write.println("Lorem ipsum dolor sit amet,");
-			write.println("consectetur adipiscing elit.");
-			write.println("suscipit pellentesque turpis, id gravida dolor ultrices ac.");
+			write.println("i cant believe it");
+			write.println("it works cool");
+			write.println("this is stuff");
 			write.close();
 
 			// invoke program
 			Reversal.reverseFile(input, output);
 
 			// verify file results
-			assertTrue("Output file does not exist", output.exists());
+			assertTrue("no file", output.exists());
 			String actual, expected;
 			Scanner scan = new Scanner(output);
 			actual = scan.nextLine();
-			expected = "ac. ultrices dolor gravida id turpis, pellentesque suscipit";
-			assertEquals("Incorrect result", expected, actual);
+			expected = "stuff is this";
+			assertEquals("fail", expected, actual);
 			actual = scan.nextLine();
-			expected = "elit. adipiscing consectetur";
-			assertEquals("Incorrect result", expected, actual);
+			expected = "cool works it";
+			assertEquals("fail", expected, actual);
 			actual = scan.nextLine();
-			expected = "amet, sit dolor ipsum Lorem";
-			assertEquals("Incorrect result", expected, actual);
-			assertFalse("File should not have more data", scan.hasNext());
+			expected = "it believe cant i";
+			assertEquals("fail", expected, actual);
+			assertFalse("end of file", scan.hasNext());
 		} catch (IOException e) {
-			fail("No exception should be thrown");
+			fail("exception");
 		}
 	}
 
 	@Test
 	public void testSeveralWithEmptyLines() {
 		try {
-			File input = folder.newFile("bing.txt");
-			File output = folder.newFile("bang.txt");
+			File input = folder.newFile("test.txt");
+			File output = folder.newFile("test2.txt");
 			// create input file
 			PrintWriter write = new PrintWriter(input);
 
-			write.println("quam. eget congue vitae, venenatis eget rhoncus magna, dolor In");
+			write.println("this is a long sentance");
 			write.println();
 			write.println();
-			write.println("volutpat. ultrices elit in ligula tristique Nunc");
+			write.println("check spaces");
 			write.println();
-			write.println("ipsum");
-			write.println("Lorem");
+			write.println("will it work");
+			write.println();
+			write.println("final one");
 			write.close();
 
 			// invoke program
@@ -98,29 +99,31 @@ public class ReversalTest {
 			String actual, expected;
 			Scanner scan = new Scanner(output);
 			actual = scan.nextLine();
-			expected = "Lorem";
-			assertEquals("Incorrect result", expected, actual);
-			actual = scan.nextLine();
-			expected = "ipsum";
-			assertEquals("Incorrect result", expected, actual);
+			expected = "one final";
 			actual = scan.nextLine();
 			expected = "";
-			assertEquals("Incorrect result", expected, actual);
+			assertEquals("fail", expected, actual);
 			actual = scan.nextLine();
-			expected = "Nunc tristique ligula in elit ultrices volutpat.";
-			assertEquals("Incorrect result", expected, actual);
-			actual = scan.nextLine();
-			expected = "";
-			assertEquals("Incorrect result", expected, actual);
+			expected = "work it will";
+			assertEquals("fail", expected, actual);
 			actual = scan.nextLine();
 			expected = "";
-			assertEquals("Incorrect result", expected, actual);
+			assertEquals("fail", expected, actual);
 			actual = scan.nextLine();
-			expected = "In dolor magna, rhoncus eget venenatis vitae, congue eget quam.";
-			assertEquals("Incorrect result", expected, actual);
-			assertFalse("File should not have more data", scan.hasNext());
+			expected = "spaces check";
+			assertEquals("fail", expected, actual);
+			actual = scan.nextLine();
+			expected = "";
+			assertEquals("fail", expected, actual);
+			actual = scan.nextLine();
+			expected = "";
+			assertEquals("fail", expected, actual);
+			actual = scan.nextLine();
+			expected = "sentance long a is this";
+			assertEquals("fail", expected, actual);
+			assertFalse("end of file", scan.hasNext());
 		} catch (IOException e) {
-			fail("No exception should be thrown");
+			fail("exception");
 		}
 	}
 }
