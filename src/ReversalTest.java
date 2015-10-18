@@ -13,7 +13,31 @@ public class ReversalTest {
 
 	@Rule
 	public TemporaryFolder folder = new TemporaryFolder();
+	
+	@Test
+	public void testnoLines() {
+		try {
+			File input = folder.newFile("test.txt");
+			File output = folder.newFile("test2.txt");
+			// create input file
+			PrintWriter write = new PrintWriter(input);
+			write.println("");
+			write.close();
 
+			//call program
+			Reversal.reverseFile(input, output);
+
+			//results
+			assertTrue("no file", output.exists());
+			Scanner scan = new Scanner(output);
+			String actual = scan.nextLine();
+			String expected = "";
+			assertEquals("fail", expected, actual);
+			assertFalse("end of file", scan.hasNext());
+		} catch (IOException e) {
+			fail("exception");
+		}
+	}
 	@Test
 	public void test1Line() {
 		try {
@@ -24,10 +48,10 @@ public class ReversalTest {
 			write.println("i will run");
 			write.close();
 
-			// invoke program
+			// call program
 			Reversal.reverseFile(input, output);
 
-			// verify file results
+			// file results
 			assertTrue("no file", output.exists());
 			Scanner scan = new Scanner(output);
 			String actual = scan.nextLine();
