@@ -184,4 +184,42 @@ public class ReversalTest {
 			fail("exception");
 		}
 	}
+	@Test
+	public void startingSpaces() {
+		try {
+			File input = folder.newFile("test.txt");
+			File output = folder.newFile("test2.txt");
+			// create input file
+			PrintWriter write = new PrintWriter(input);
+
+		
+			write.println("work? try");
+			write.println();
+			write.println();
+			
+			write.close();
+
+			// invoke program
+			Reversal.reverseFile(input, output);
+
+			// verify file results
+			assertTrue("Output file does not exist", output.exists());
+			String actual, expected;
+			Scanner scan = new Scanner(output);
+			actual = scan.nextLine();
+			expected = "";
+			assertEquals("fail", expected, actual);
+			actual = scan.nextLine();
+			expected = "";
+			assertEquals("fail", expected, actual);
+			actual = scan.nextLine();
+			expected = "try work?";
+			assertEquals("fail", expected, actual);
+		
+			assertEquals("fail", expected, actual);
+			assertFalse("end of file", scan.hasNext());
+		} catch (IOException e) {
+			fail("exception");
+		}
+	}
 }
