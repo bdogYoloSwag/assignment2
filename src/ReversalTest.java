@@ -15,6 +15,40 @@ public class ReversalTest {
 	public TemporaryFolder folder = new TemporaryFolder();
 	
 	@Test
+	public void testoneSpace() {
+			try {
+				File input = folder.newFile("test.txt");
+				File output = folder.newFile("test2.txt");
+				// create input file
+				PrintWriter write = new PrintWriter(input);
+				write.println("stuff");
+				write.println("");
+				write.println("words stuff junk");
+				write.close();
+
+				// invoke program
+				Reversal.reverseFile(input, output);
+
+				// verify file results
+				assertTrue("no file", output.exists());
+				String actual, expected;
+				Scanner scan = new Scanner(output);
+				actual = scan.nextLine();
+				expected = "junk stuff words";
+				assertEquals("fail", expected, actual);
+				actual = scan.nextLine();
+				expected = "";
+				assertEquals("fail", expected, actual);
+				actual = scan.nextLine();
+				expected = "stuff";
+				assertEquals("fail", expected, actual);
+				assertFalse("end of file", scan.hasNext());
+			} catch (IOException e) {
+				fail("exception");
+			}
+		}
+	
+	@Test
 	public void testnoLines() {
 		try {
 			File input = folder.newFile("test.txt");
